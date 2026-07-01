@@ -4,6 +4,9 @@ import { ShoppingCart, Trash2, Plus, Minus, Package, Loader2, ArrowRight, Shoppi
 import { cartService } from '../../services/cart.service';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { useAuth } from '../../hooks/useAuth';
+import { API_BASE_URL } from '../../utils/constants';
+
+const baseUrl = API_BASE_URL.replace('/api', '');
 
 const Cart = () => {
   const { user } = useAuth();
@@ -91,12 +94,12 @@ const Cart = () => {
             {items.map(item => {
               const product = item.Product;
               const variant = item.variant;
-              const imgUrl = product?.image ? `http://localhost:5000${product.image}` : null;
+              const imgUrl = product?.image ? `${baseUrl}${product.image}` : null;
 
               return (
-                <div key={item.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex gap-4 items-center">
+                <div key={item.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex flex-col sm:flex-row gap-4 sm:items-center relative">
                   {/* Image */}
-                  <div className="w-20 h-20 bg-gray-50 rounded-xl border overflow-hidden flex items-center justify-center shrink-0">
+                  <div className="w-full sm:w-20 h-32 sm:h-20 bg-gray-50 rounded-xl border overflow-hidden flex items-center justify-center shrink-0">
                     {imgUrl
                       ? <img src={imgUrl} alt={product?.productName} className="object-cover w-full h-full" />
                       : <Package className="w-8 h-8 text-gray-300" />}
@@ -111,8 +114,10 @@ const Cart = () => {
                     <p className="text-sm text-gray-500 mt-0.5">{formatCurrency(item.price)} each</p>
                   </div>
 
-                  {/* Quantity */}
-                  <div className="flex items-center gap-1 shrink-0">
+                  {/* Actions & Info row on mobile */}
+                  <div className="flex items-center justify-between sm:contents w-full">
+                    {/* Quantity */}
+                    <div className="flex items-center gap-1 shrink-0">
                     <button
                       onClick={() => handleQuantityChange(item, -1)}
                       disabled={updating === item.id}
@@ -137,14 +142,15 @@ const Cart = () => {
                     <p className="font-black text-indigo-700 text-lg">{formatCurrency(parseFloat(item.subtotal))}</p>
                   </div>
 
-                  {/* Remove */}
-                  <button
-                    onClick={() => handleRemove(item.id)}
-                    disabled={updating === item.id}
-                    className="text-gray-400 hover:text-red-500 transition-colors disabled:opacity-50 shrink-0"
-                  >
-                    <Trash2 className="w-4.5 h-4.5" />
-                  </button>
+                    {/* Remove */}
+                    <button
+                      onClick={() => handleRemove(item.id)}
+                      disabled={updating === item.id}
+                      className="absolute top-4 right-4 sm:static sm:top-auto sm:right-auto text-gray-400 hover:text-red-500 transition-colors disabled:opacity-50 shrink-0 p-2 sm:p-0"
+                    >
+                      <Trash2 className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
               );
             })}

@@ -3,6 +3,9 @@ import { Bell, Search, LogOut, ChevronDown, Package, AlertCircle } from 'lucide-
 import { useAuth } from '../../hooks/useAuth';
 import { productService } from '../../services/product.service';
 import { settingService } from '../../services/setting.service';
+import { API_BASE_URL } from '../../utils/constants';
+
+const baseUrl = API_BASE_URL.replace('/api', '');
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -123,7 +126,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-3 border-l border-gray-200/60 pl-6 cursor-pointer">
             <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold shadow-md group-hover:shadow-lg group-hover:-translate-y-0.5 transition-all overflow-hidden">
               {companyLogo ? (
-                <img src={`http://localhost:5000${companyLogo}`} alt="Profile" className="w-full h-full object-cover" />
+                <img src={`${baseUrl}${companyLogo}`} alt="Profile" className="w-full h-full object-cover" />
               ) : (
                 user?.name ? user.name.charAt(0).toUpperCase() : 'U'
               )}

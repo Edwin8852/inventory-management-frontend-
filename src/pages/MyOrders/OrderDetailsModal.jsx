@@ -4,6 +4,9 @@ import {
   Truck, Phone, MapPin, CheckCircle, Clock 
 } from 'lucide-react';
 import { formatCurrency } from '../../utils/formatCurrency';
+import { API_BASE_URL } from '../../utils/constants';
+
+const baseUrl = API_BASE_URL.replace('/api', '');
 
 const OrderDetailsModal = ({ isOpen, onClose, order, isSupplier }) => {
   if (!isOpen || !order) return null;
@@ -158,7 +161,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order, isSupplier }) => {
                   <div key={item.id} className="bg-white rounded-[16px] shadow-[0_4px_15px_rgba(0,0,0,0.06)] p-4 flex flex-col sm:flex-row gap-4 items-center">
                     <div className="w-20 h-20 bg-gray-50 rounded-xl border border-gray-100 flex flex-shrink-0 items-center justify-center p-2">
                       {item.Product?.image 
-                        ? <img src={`http://localhost:5000${item.Product.image}`} className="w-full h-full object-contain" alt="product" />
+                        ? <img src={`${baseUrl}${item.Product.image}`} className="w-full h-full object-contain" alt="product" />
                         : <Package className="w-8 h-8 text-gray-300" />
                       }
                     </div>

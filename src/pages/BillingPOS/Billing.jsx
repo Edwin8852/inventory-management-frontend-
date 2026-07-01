@@ -9,6 +9,9 @@ import { warehouseService } from '../../services/warehouse.service';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { Search, Plus, Minus, Trash2, PauseCircle, PlayCircle, Loader2, UserPlus, CreditCard, Banknote, Landmark, Smartphone, ShoppingCart, ArrowRight } from 'lucide-react';
 import Modal from '../../components/ui/Modal';
+import { API_BASE_URL } from '../../utils/constants';
+
+const baseUrl = API_BASE_URL.replace('/api', '');
 
 const Billing = () => {
   const { 
@@ -143,7 +146,7 @@ const Billing = () => {
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {filteredProducts.map(product => {
-                const imgUrl = product.image ? `http://localhost:5000${product.image}` : null;
+                const imgUrl = product.image ? `${baseUrl}${product.image}` : null;
                 return (
                   <div 
                     key={product.id} 

@@ -9,6 +9,9 @@ import { orderService } from '../../services/order.service';
 import { purchaseService } from '../../services/purchase.service';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { useAuth } from '../../hooks/useAuth';
+import { API_BASE_URL } from '../../utils/constants';
+
+const baseUrl = API_BASE_URL.replace('/api', '');
 
 // ─── QR Code display for UPI ─────────────────────────────────────────────────
 const UPI_ID = 'bgmkingedwin8486w@okhdfcbank';
@@ -350,7 +353,7 @@ const Checkout = () => {
                     <div key={item.id} className="flex items-center gap-4 py-3">
                       <div className="w-12 h-12 bg-gray-50 rounded-xl border overflow-hidden flex items-center justify-center shrink-0">
                         {product?.image
-                          ? <img src={`http://localhost:5000${product.image}`} className="object-cover w-full h-full" alt="" />
+                          ? <img src={`${baseUrl}${product.image}`} className="object-cover w-full h-full" alt="" />
                           : <Package className="w-6 h-6 text-gray-300" />}
                       </div>
                       <div className="flex-1">

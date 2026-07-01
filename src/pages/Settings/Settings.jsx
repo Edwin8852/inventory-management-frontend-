@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { settingService } from '../../services/setting.service';
 import { Save, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { API_BASE_URL } from '../../utils/constants';
+
+const baseUrl = API_BASE_URL.replace('/api', '');
 
 const Settings = () => {
   const [formData, setFormData] = useState({
@@ -114,7 +117,7 @@ const Settings = () => {
                     {logoFile ? (
                       <img src={URL.createObjectURL(logoFile)} alt="Preview" className="w-full h-full object-cover" />
                     ) : currentLogo ? (
-                      <img src={`http://localhost:5000${currentLogo}`} alt="Current Logo" className="w-full h-full object-cover" />
+                      <img src={`${baseUrl}${currentLogo}`} alt="Current Logo" className="w-full h-full object-cover" />
                     ) : (
                       <ImageIcon className="w-8 h-8 text-gray-400" />
                     )}

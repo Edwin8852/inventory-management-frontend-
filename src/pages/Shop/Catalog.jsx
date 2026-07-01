@@ -8,6 +8,9 @@ import { productService } from '../../services/product.service';
 import { cartService } from '../../services/cart.service';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { useAuth } from '../../hooks/useAuth';
+import { API_BASE_URL } from '../../utils/constants';
+
+const baseUrl = API_BASE_URL.replace('/api', '');
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -23,7 +26,7 @@ const groupByCategory = (products) => {
 const CustomerProductCard = ({ product, onAddToCart, adding }) => {
   const totalStore = product.variants?.reduce((s, v) => s + (v.storeStock || 0), 0) || 0;
   const inStock = totalStore > 0;
-  const imgUrl = product.image ? `http://localhost:5000${product.image}` : null;
+  const imgUrl = product.image ? `${baseUrl}${product.image}` : null;
   const brandName = product.brand ? product.brand.toUpperCase() : 'BRAND';
 
   return (
@@ -79,7 +82,7 @@ const CustomerProductCard = ({ product, onAddToCart, adding }) => {
 const SupplierProductCard = ({ product, onAddToCart, adding }) => {
   const totalWH = product.variants?.reduce((s, v) => s + (v.warehouseStock || 0), 0) || 0;
   const inStock = totalWH > 0;
-  const imgUrl = product.image ? `http://localhost:5000${product.image}` : null;
+  const imgUrl = product.image ? `${baseUrl}${product.image}` : null;
   const brandName = product.brand ? product.brand.toUpperCase() : 'SUPPLIER';
   const moq = product.minOrderQuantity || 1;
 
@@ -238,7 +241,7 @@ const AddToCartModal = ({ product, isSupplier, onClose, onConfirm }) => {
           {/* Product Header */}
           <div className="flex gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100">
             <div className="w-16 h-16 bg-white border border-gray-200 rounded-lg overflow-hidden flex items-center justify-center shrink-0 shadow-sm">
-              {product.image ? <img src={`http://localhost:5000${product.image}`} className="object-cover w-full h-full" alt="" /> : <Package className="w-8 h-8 text-gray-300" />}
+              {product.image ? <img src={`${baseUrl}${product.image}`} className="object-cover w-full h-full" alt="" /> : <Package className="w-8 h-8 text-gray-300" />}
             </div>
             <div className="flex-1">
               <p className="font-bold text-gray-900 text-sm leading-tight mb-1">{product.productName}</p>

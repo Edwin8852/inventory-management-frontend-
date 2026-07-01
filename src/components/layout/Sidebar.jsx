@@ -5,6 +5,9 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { settingService } from '../../services/setting.service';
+import { API_BASE_URL } from '../../utils/constants';
+
+const baseUrl = API_BASE_URL.replace('/api', '');
 
 const navItems = [
   { path: '/dashboard', name: 'Dashboard', icon: LayoutDashboard, roles: ['ADMIN', 'SUPPLIER', 'CUSTOMER'] },
@@ -57,7 +60,7 @@ const Sidebar = () => {
       <div className="h-20 flex items-center px-6 border-b border-white/5 relative z-10">
         <div className="w-10 h-10 bg-violet-600 rounded-xl flex items-center justify-center mr-3 font-black text-xl shadow-[0_0_15px_rgba(139,92,246,0.5)] text-white overflow-hidden">
           {companyLogo ? (
-            <img src={`http://localhost:5000${companyLogo}`} alt="Logo" className="w-full h-full object-cover" />
+            <img src={`${baseUrl}${companyLogo}`} alt="Logo" className="w-full h-full object-cover" />
           ) : (
             'X'
           )}
